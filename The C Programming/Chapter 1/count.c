@@ -2,7 +2,9 @@
 #include <string.h>
 #include <stdlib.h>
 
-
+int numOfLines(char);
+int numOfBlanks(char);
+int numOfTabs(char);
 /*program count tabs, blanks and new lines */
 int main()
 {
@@ -10,7 +12,7 @@ int main()
      EACH LINE TERMINATED BY A NEWLINE ( \n ). 
      Hence, counting lines is just counting newline.
      */
-    int choose, c,line;
+    int choose, c, line  = 0, blank = 0, tab = 0;
     printf("type (1 or 2) \n 1 - if you want to input text and count it \n 2 - if you want to add a file and count it \n ");
     scanf("%d" , &choose);
 
@@ -39,8 +41,9 @@ int main()
         while ((ch=getc(f))!=EOF) //reading the character from file until f equals to EOF
         {
           putchar(ch);
-          if ( ch == '\n')
-          line++;
+          line += numOfLines(ch);
+          tab += numOfTabs(ch);
+          blank += numOfBlanks(ch);
           
         }
     
@@ -50,4 +53,18 @@ int main()
     printf("%d \n", line);
     
     return 0;
+}
+
+
+int numOfLines(char c)
+{
+    return c == '\n' ? 1 : 0;
+}
+
+int numOfBlanks(char c)
+{
+     return c == 32 ? 1 : 0; // 32 this is an ASCII code for tap  
+}
+int numOfTabs(char c){
+    return c == '\t' ? 1 : 0;
 }
